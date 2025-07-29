@@ -29,14 +29,17 @@ class FeishuNotifier:
 
         # 构造目标键
         target_key_project = f"FEISHU_WEBHOOK_URL_{project_name.upper()}"
-        target_key_url_slug = f"FEISHU_WEBHOOK_URL_{url_slug.upper()}"
+        target_key_url_slug = None
+        if url_slug:  # 添加这个检查
+            target_key_url_slug = f"FEISHU_WEBHOOK_URL_{url_slug.upper()}"
 
         # 遍历环境变量
         for env_key, env_value in os.environ.items():
             env_key_upper = env_key.upper()
             if env_key_upper == target_key_project:
                 return env_value  # 找到项目名称对应的 Webhook URL，直接返回
-            if env_key_upper == target_key_url_slug:
+            # 只有当 target_key_url_slug 不为 None 时才进行比较
+            if target_key_url_slug and env_key_upper == target_key_url_slug:
                 return env_value  # 找到 GitLab URL 对应的 Webhook URL，直接返回
 
         # 如果未找到匹配的环境变量，降级使用全局的 Webhook URL
