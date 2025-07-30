@@ -38,8 +38,8 @@ class SVNHandler:
 
         if not os.path.exists(os.path.join(self.svn_local_path, '.svn')):
             logger.info(f"本地SVN工作副本不存在于 {self.svn_local_path}, 执行 checkout...")
-            # 使用 . 作为目标，检出到CWD
-            command = ['svn', 'checkout', self.svn_remote_url, '.']
+            # 使用 . 作为目标，检出到CWD，增加 --ignore-externals 参数
+            command = ['svn', 'checkout', '--ignore-externals', self.svn_remote_url, '.']
             stdout, stderr, returncode = self._run_svn_command(command, cwd=self.svn_local_path)
             if returncode != 0:
                 raise RuntimeError(f"SVN checkout 失败: {stderr}")
@@ -134,7 +134,7 @@ class SVNHandler:
         更新SVN工作副本
         :return: 更新是否成功
         """
-        stdout, stderr, returncode = self._run_svn_command(['svn', 'update'], cwd=self.svn_local_path)
+        stdout, stderr, returncode = self._run_svn_command(['svn', 'update', '--ignore-externals'], cwd=self.svn_local_path)
         
         if returncode != 0:
             logger.error(f"SVN更新失败: {stderr}")
@@ -147,7 +147,7 @@ class SVNHandler:
                 if cleanup_success:
                     # cleanup或重建成功后重试更新
                     logger.info("SVN cleanup/重建成功，重试更新...")
-                    stdout, stderr, returncode = self._run_svn_command(['svn', 'update'], cwd=self.svn_local_path)
+                    stdout, stderr, returncode = self._run_svn_command(['svn', 'update', '--ignore-externals'], cwd=self.svn_local_path)
                     
                     if returncode != 0:
                         logger.error(f"SVN cleanup/重建后更新仍然失败: {stderr}")
