@@ -358,7 +358,7 @@ class UIComponents:
                 import requests
                 from biz.utils.default_config import get_env_with_default
                 # 使用API_URL配置
-                api_url_base = get_env_with_default('API_URL', 'http://localhost:5001')
+                api_url_base = get_env_with_default('API_URL', 'http://127.0.0.1:5001')
                 api_url = f"{api_url_base}/review/retry"
                 payload = {"type": review_type, "id": unique_id}
                 try:
