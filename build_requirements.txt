@@ -1,0 +1,38 @@
+# PyInstaller 打包专用依赖
+# 在打包前安装这些依赖以确保打包成功
+
+# 核心打包工具
+pyinstaller>=6.0.0
+
+# 确保包含所有必要的依赖
+Flask==3.0.3
+APScheduler==3.10.4
+python-dotenv==1.0.0
+httpx[socks]==0.27.0
+Jinja2==3.1.4
+lizard==1.17.20
+matplotlib==3.8.4
+ollama==0.4.7
+openai==1.59.3
+pandas==2.2.3
+pathspec==0.12.1
+plotly==5.18.0
+PyMySQL==1.1.1
+python-gitlab==5.6.0
+PyYAML==6.0.1
+requests==2.32.3
+schedule==1.2.0
+streamlit==1.39.0
+tabulate==0.9.0
+tiktoken==0.9.0
+zhipuai==2.1.5.20230904
+rq==2.1.0
+watchdog==3.0.0
+psutil==5.9.5
+portalocker==3.2.0
+
+# 额外的打包依赖
+altgraph>=0.17.2
+pefile>=2023.2.7
+pywin32-ctypes>=0.2.0
+pywin32>=306
